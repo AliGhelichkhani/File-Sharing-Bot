@@ -29,6 +29,12 @@ class Bot(Client):
         usr_bot_me = await self.get_me()
         self.uptime = datetime.now()
 
+        try:
+            await self.set_bot_description("یادگیری نامحدود تکنولوژی به صورت رایگان🧠 \r\nخوش اومدی به مموری لیک شو🙋🏻‍♂️\r\nویدیوهای آموزش برنامه نویسی مباحث مرتبط هفتگی توی یوتوب آپلود میشه\r\nیادت نره سابسکرایب کنی👇🏻\r\nhttps://www.youtube.com/@memoryleaksho?sub_confirmation=1\r\nچنل تلگرام 👇🏻\r\n@MemoryLeakSho")
+            await self.set_bot_short_description("چنل تلگرام 🧠:\r\n@MemoryLeakSho\r\nپشتیبانی 💬:\r\n@MemoryLeakShoContact")
+        except Exception as e:
+            self.LOGGER(__name__).warning(f"Failed to set bot description or about: {e}")
+        
         if FORCE_SUB_CHANNEL:
             try:
                 link = (await self.get_chat(FORCE_SUB_CHANNEL)).invite_link
