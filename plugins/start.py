@@ -153,15 +153,20 @@ async def not_joined(client: Client, message: Message):
             InlineKeyboardButton(
                 "عضویت 🧠",
                 url = client.invitelink)
-        ],
-        [
-            InlineKeyboardButton(
-                text = 'تایید عضویت ✅',
-                url = f"https://t.me/{client.username}?start={message.command[1]}"
-            )
         ]
     ]
-
+    try:
+        buttons.append(
+            [
+                InlineKeyboardButton(
+                    text = 'تایید عضویت ✅',
+                    url = f"https://t.me/{client.username}?start={message.command[1]}"
+                )
+            ]
+        )
+    except IndexError:
+        pass
+        
     await message.reply(
         text = FORCE_MSG.format(
                 first = message.from_user.first_name,
