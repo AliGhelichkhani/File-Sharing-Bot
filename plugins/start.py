@@ -151,21 +151,16 @@ async def not_joined(client: Client, message: Message):
     buttons = [
         [
             InlineKeyboardButton(
-                "Join Channel",
+                "عضویت 🧠",
                 url = client.invitelink)
+        ],
+        [
+            InlineKeyboardButton(
+                text = 'تایید عضویت ✅',
+                url = f"https://t.me/{client.username}?start={message.command[1]}"
+            )
         ]
     ]
-    try:
-        buttons.append(
-            [
-                InlineKeyboardButton(
-                    text = 'Try Again',
-                    url = f"https://t.me/{client.username}?start={message.command[1]}"
-                )
-            ]
-        )
-    except IndexError:
-        pass
 
     await message.reply(
         text = FORCE_MSG.format(
