@@ -159,7 +159,7 @@ async def not_joined(client: Client, message: Message):
         buttons.append(
             [
                 InlineKeyboardButton(
-                    text = 'تایید عضویت ✅',
+                    text = "تایید عضویت ✅",
                     url = f"https://t.me/{client.username}?start={message.command[1]}"
                 )
             ]
