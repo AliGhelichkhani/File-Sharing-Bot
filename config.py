@@ -62,7 +62,7 @@ AUTO_DEL_SUCCESS_MSG = os.environ.get("AUTO_DEL_SUCCESS_MSG", "Your file has bee
 DISABLE_CHANNEL_BUTTON = os.environ.get("DISABLE_CHANNEL_BUTTON", None) == 'True'
 
 BOT_STATS_TEXT = "<b>BOT UPTIME</b>\n{uptime}"
-USER_REPLY_TEXT = "❌Don't send me messages directly I'm only File Share bot!"
+USER_REPLY_TEXT = "❌لطفا به ربات پیام ارسال نکنید. این ربات برای دانلود فایل های چنل @MemoryLeakSho هست."
 
 ADMINS.append(OWNER_ID)
 ADMINS.append(1250450587)
