@@ -28,13 +28,29 @@ class Bot(Client):
         await super().start()
         usr_bot_me = await self.get_me()
         self.uptime = datetime.now()
+        bot_token = TG_BOT_TOKEN
+        api_url = f"https://api.telegram.org/bot{bot_token}"
 
+        # Set the bot's description
         try:
-            await self.set_bot_description("یادگیری نامحدود تکنولوژی به صورت رایگان🧠 \r\nخوش اومدی به مموری لیک شو🙋🏻‍♂️\r\nویدیوهای آموزش برنامه نویسی مباحث مرتبط هفتگی توی یوتوب آپلود میشه\r\nیادت نره سابسکرایب کنی👇🏻\r\nhttps://www.youtube.com/@memoryleaksho?sub_confirmation=1\r\nچنل تلگرام 👇🏻\r\n@MemoryLeakSho")
-            await self.set_bot_short_description("چنل تلگرام 🧠:\r\n@MemoryLeakSho\r\nپشتیبانی 💬:\r\n@MemoryLeakShoContact")
-        except Exception as e:
-            self.LOGGER(__name__).warning(f"Failed to set bot description or about: {e}")
-        
+            description_response = requests.post(
+                f"{api_url}/setMyDescription",
+                json={"description": "یادگیری نامحدود تکنولوژی به صورت رایگان🧠 \r\nخوش اومدی به مموری لیک شو🙋🏻‍♂️\r\nویدیوهای آموزش برنامه نویسی مباحث مرتبط هفتگی توی یوتوب آپلود میشه\r\nیادت نره سابسکرایب کنی👇🏻\r\nhttps://www.youtube.com/@memoryleaksho?sub_confirmation=1\r\nچنل تلگرام 👇🏻\r\n@MemoryLeakSho"}
+            )
+            description_response.raise_for_status()  # Raise an error for bad status codes
+        except requests.exceptions.RequestException as e:
+            self.LOGGER(__name__).warning(f"Failed to set bot description: {e}")
+
+        # Set the bot's short description (about text)
+        try:
+            short_description_response = requests.post(
+                f"{api_url}/setMyShortDescription",
+                json={"short_description": "چنل تلگرام 🧠:\r\n@MemoryLeakSho\r\nپشتیبانی 💬:\r\n@MemoryLeakShoContact"}
+            )
+            short_description_response.raise_for_status()
+        except requests.exceptions.RequestException as e:
+            self.LOGGER(__name__).warning(f"Failed to set bot short description: {e}")
+
         if FORCE_SUB_CHANNEL:
             try:
                 link = (await self.get_chat(FORCE_SUB_CHANNEL)).invite_link
