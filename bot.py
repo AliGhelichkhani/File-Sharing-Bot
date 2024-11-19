@@ -1,4 +1,3 @@
-
 from aiohttp import web
 from plugins import web_server
 from pyrogram import Client
@@ -23,7 +22,17 @@ class Bot(Client):
         )
         self.LOGGER = LOGGER
 
+    async def set_description(self):
+        description = "یادگیری نامحدود تکنولوژی به صورت رایگان🧠 \r\nخوش اومدی به مموری لیک شو🙋🏻‍♂️\r\nویدیوهای آموزش برنامه نویسی مباحث مرتبط هفتگی توی یوتوب آپلود میشه\r\nیادت نره سابسکرایب کنی👇🏻\r\nhttps://www.youtube.com/@memoryleaksho?sub_confirmation=1\r\nچنل تلگرام 👇🏻\r\n@MemoryLeakSho"  # Replace with your desired description
+        try:
+            await self.set_bot_description(description)
+        except Exception as e:
+            self.LOGGER(__name__).warning(f"Failed to set bot description: {e}")
+
     async def start(self):
+        # Set bot description before starting the bot
+        await self.set_description()
+
         await super().start()
         usr_bot_me = await self.get_me()
         self.uptime = datetime.now()
