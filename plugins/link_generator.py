@@ -2,9 +2,8 @@
 
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
-from config import ADMINS, API_ID, API_HASH, BOT_TOKEN
+from config import ADMINS, APP_ID, API_HASH, TG_BOT_TOKEN, TG_BOT_WORKERS
 from helper_func import encode, get_message_id
-
 # Initialize the bot as a Client instance
 Bot = Client(
     name="Bot",
