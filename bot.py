@@ -1,11 +1,12 @@
-import sys
-import requests
 from aiohttp import web
+from plugins import web_server
 from pyrogram import Client
 from pyrogram.enums import ParseMode
+import sys
 from datetime import datetime
+
 from config import API_HASH, APP_ID, LOGGER, TG_BOT_TOKEN, TG_BOT_WORKERS, FORCE_SUB_CHANNEL, CHANNEL_ID, PORT
-from plugins import web_server
+
 
 class Bot(Client):
     def __init__(self):
@@ -21,26 +22,7 @@ class Bot(Client):
         )
         self.LOGGER = LOGGER
 
-    async def set_description(self):
-        # Set the bot description via Telegram Bot API using an HTTP request
-        description = "یادگیری نامحدود تکنولوژی به صورت رایگان🧠 \r\nخوش اومدی به مموری لیک شو🙋🏻‍♂️\r\nویدیوهای آموزش برنامه نویسی مباحث مرتبط هفتگی توی یوتوب آپلود میشه\r\nیادت نره سابسکرایب کنی👇🏻\r\nhttps://www.youtube.com/@memoryleaksho?sub_confirmation=1\r\nچنل تلگرام 👇🏻\r\n@MemoryLeakSho"  # Replace with your desired description
-        url = f"https://api.telegram.org/bot{TG_BOT_TOKEN}/setMyDescription"
-        params = {"description": description}
-
-        try:
-            response = requests.post(url, data=params)
-            result = response.json()
-            if result["ok"]:
-                self.LOGGER(__name__).info("Bot description set successfully!")
-            else:
-                self.LOGGER(__name__).warning(f"Failed to set bot description: {result}")
-        except Exception as e:
-            self.LOGGER(__name__).warning(f"Failed to set bot description: {e}")
-
     async def start(self):
-        # Call the set_description method before starting the bot
-        await self.set_description()
-
         await super().start()
         usr_bot_me = await self.get_me()
         self.uptime = datetime.now()
@@ -81,7 +63,7 @@ class Bot(Client):
         print("Welcome to Memory Leak Sho File Sharing Bot")
         self.username = usr_bot_me.username
 
-        # Start web server with aiohttp
+        # Web server response
         app = web.AppRunner(await web_server())
         await app.setup()
         bind_address = "0.0.0.0"
