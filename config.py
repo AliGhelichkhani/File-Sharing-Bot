@@ -65,7 +65,6 @@ BOT_STATS_TEXT = "<b>BOT UPTIME</b>\n{uptime}"
 USER_REPLY_TEXT = "❌لطفا به ربات پیام ارسال نکنید. این ربات برای دانلود فایل های چنل @MemoryLeakSho هست."
 
 ADMINS.append(OWNER_ID)
-ADMINS.append(1250450587)
 
 LOG_FILE_NAME = "filesharingbot.txt"
 
